@@ -1,4 +1,4 @@
-**# 🐍 Python Reverse Shell — Estudos de Cibersegurança
+*# 🐍 Python Reverse Shell — Estudos de Cibersegurança
 
 Projeto desenvolvido em Python com o objetivo de estudar conceitos de comunicação via sockets TCP, arquitetura cliente-servidor e funcionamento de conexões reversas (*Reverse Shell*).
 
