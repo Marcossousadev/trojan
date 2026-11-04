@@ -78,6 +78,93 @@ dist/
 
 Este projeto foi desenvolvido para aprofundar meus conhecimentos em Python, comunicação de rede e fundamentos de cibersegurança, explorando na prática conceitos relacionados a conexões TCP, arquitetura cliente-servidor e execução de processos.
 
+## 💻 Comandos importantes do PowerShell / Windows
+
+Durante os testes em laboratório, alguns comandos nativos do Windows podem ajudar a entender melhor o ambiente operacional.
+
+### 👤 Informações de usuários
+
+Listar os usuários cadastrados no Windows:
+
+```powershell
+net user
+```
+
+Identificar o nome do computador:
+
+```powershell
+hostname
+```
+
+### 🌐 Informações de rede
+
+Consultar as configurações de rede:
+
+```powershell
+ipconfig
+```
+
+Listar os perfis de redes Wi-Fi salvos:
+
+```powershell
+netsh wlan show profiles
+```
+
+Consultar informações de um perfil Wi-Fi próprio, incluindo a chave quando permitido:
+
+```powershell
+netsh wlan show profile name="NOME_REDE"
+```
+
+### ⚙️ Processos do sistema
+
+Listar os processos em execução:
+
+```powershell
+tasklist
+```
+
+Encerrar um processo pelo seu PID:
+
+```powershell
+taskkill /PID NUMERO_DO_PROCESSO /F
+```
+
+O comando `taskkill` permite finalizar um processo utilizando seu identificador (PID). Utilize-o somente em processos que você administra.
+
+### 🔐 Credenciais armazenadas
+
+Consultar os nomes das credenciais registradas no Gerenciador de Credenciais do Windows:
+
+```powershell
+cmdkey /list
+```
+
+**Observação:** esse comando pode exibir informações sensíveis sobre contas e serviços. Não compartilhe sua saída publicamente.
+
+### 🖥️ Informações do sistema operacional
+
+Consultar informações detalhadas sobre o sistema operacional e o hardware:
+
+```powershell
+systeminfo
+```
+
+Esse comando apresenta informações como versão do Windows, fabricante, memória, arquitetura e dados de inicialização.
+
+## 📚 Objetivo dos comandos
+
+Esses comandos ajudam a compreender como funciona a administração do Windows através do terminal, explorando informações sobre:
+
+- Usuários e contas do sistema.
+- Identificação da máquina.
+- Configurações de rede.
+- Processos em execução.
+- Gerenciamento de processos.
+- Informações do sistema operacional.
+
+Esses conhecimentos também são importantes para entender conceitos de reconhecimento de sistemas (*System Enumeration*) em ambientes de laboratório autorizados.
+
 ## ⚠️ Aviso de segurança
 
 Este projeto possui finalidade exclusivamente educacional, sendo destinado ao estudo de redes de computadores e segurança da informação.
