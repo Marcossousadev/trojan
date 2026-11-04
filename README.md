@@ -1,4 +1,4 @@
-## 🐍 Python Reverse Shell — Estudos de Cibersegurança
+  ## 🐍 Python Reverse Shell — Estudos de Cibersegurança
 
 Projeto desenvolvido em Python com o objetivo de estudar conceitos de comunicação via sockets TCP, arquitetura cliente-servidor e funcionamento de conexões reversas (*Reverse Shell*).
 
@@ -15,6 +15,21 @@ Compreender como funciona uma conexão reversa, na qual uma aplicação cliente 
 - `time` — Controle de intervalos de execução.
 - `PyInstaller` — Empacotamento de aplicações Python em executáveis.
 - `python-dotenv` — Gerenciamento de variáveis de ambiente.
+
+### ⚙️ Configuração do endereço IP
+
+O endereço IP utilizado pelo projeto está definido diretamente no código-fonte (*hardcoded*).
+
+Antes de realizar testes no laboratório, verifique se o endereço configurado corresponde à máquina de testes autorizada.
+
+```python
+IP = "192.168.1.xx"
+```
+Informe o IP da máquina sua de ataque.
+
+O endereço apresentado é apenas um exemplo. Caso utilize outro ambiente de laboratório, será necessário ajustar a configuração correspondente antes de gerar o executável novamente.
+
+**Importante:** após qualquer alteração no código-fonte, gere novamente o executável utilizando o PyInstaller para incorporar as mudanças.
 
 ## ⚙️ Conceitos estudados
 
