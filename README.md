@@ -74,6 +74,73 @@ dist/
 
 **Observação:** sempre que houver alterações no código-fonte, será necessário gerar novamente o executável para incorporar as mudanças.
 
+
+## 🔌 Netcat / Ncat
+
+Para estudar comunicação TCP entre máquinas, podemos utilizar ferramentas como **Netcat (nc)** e **Ncat**.
+
+Essas ferramentas permitem testar conexões de rede, verificar portas e analisar a comunicação entre aplicações.
+
+### Instalação
+
+**Windows**
+
+O Ncat é distribuído junto ao Nmap.
+
+Site oficial: https://nmap.org/download.html
+
+**Kali Linux / Debian**
+
+```bash
+sudo apt update
+sudo apt install netcat-openbsd
+```
+
+### Verificando a instalação
+
+No Windows:
+
+```powershell
+ncat --version
+```
+
+No Linux:
+
+```bash
+nc -h
+```
+
+## Como se conectar ao computador da vitima
+
+No Windows execute:
+
+```bash
+ncat -lv 443
+```
+
+No Kali Linux:
+
+```bash
+nc -lv 443
+```
+
+Meu conselho é instalar em uma máquina virtual essas ferramentas!
+
+
+### Aplicações
+
+- Testes de conectividade TCP.
+- Diagnóstico de portas.
+- Comunicação entre aplicações.
+- Análise de tráfego em laboratórios.
+- Estudos sobre protocolos de rede.
+
+### Observação
+
+Netcat e Ncat são ferramentas diferentes, embora tenham funcionalidades semelhantes. A disponibilidade de opções e parâmetros pode variar conforme a implementação e o sistema operacional.
+
+Utilize essas ferramentas somente em redes e máquinas próprias ou com autorização explícita.
+
 ## 📚 Aprendizados
 
 Este projeto foi desenvolvido para aprofundar meus conhecimentos em Python, comunicação de rede e fundamentos de cibersegurança, explorando na prática conceitos relacionados a conexões TCP, arquitetura cliente-servidor e execução de processos.
