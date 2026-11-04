@@ -14,7 +14,6 @@ Compreender como funciona uma conexão reversa, na qual uma aplicação cliente 
 - `os` — Manipulação de diretórios.
 - `time` — Controle de intervalos de execução.
 - `PyInstaller` — Empacotamento de aplicações Python em executáveis.
-- `python-dotenv` — Gerenciamento de variáveis de ambiente.
 
 ### ⚙️ Configuração do endereço IP
 
