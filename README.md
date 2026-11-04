@@ -1,4 +1,4 @@
-*# 🐍 Python Reverse Shell — Estudos de Cibersegurança
+## 🐍 Python Reverse Shell — Estudos de Cibersegurança
 
 Projeto desenvolvido em Python com o objetivo de estudar conceitos de comunicação via sockets TCP, arquitetura cliente-servidor e funcionamento de conexões reversas (*Reverse Shell*).
 
@@ -43,7 +43,7 @@ O código também explora a utilização de processos externos e a manipulação
 Clone o repositório:
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/Marcossousadev/trojan.git
 ```
 
 Instale as dependências:
