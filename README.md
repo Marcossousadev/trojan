@@ -1,6 +1,7 @@
-  ## 🐍 Python Reverse Shell — Estudos de Cibersegurança - Trojan Desenvolvido para Windows
+  ## 🐍 Python Reverse Shell — Estudos de Cibersegurança - Trojan Desenvolvido para Windows.
 
 Projeto desenvolvido em Python com o objetivo de estudar conceitos de comunicação via sockets TCP, arquitetura cliente-servidor e funcionamento de conexões reversas (*Reverse Shell*).
+Esse projeto é executável apenas no Sistema Operacional Windows, a vítima deve ter Windows como sistema operacional.
 
 ## 🎯 Objetivo
 
