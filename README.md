@@ -309,6 +309,7 @@ Para investigar aplicações configuradas para inicialização automática, pode
 
 ```powershell
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
+```
 
 ## ⚠️ Aviso de segurança
 
