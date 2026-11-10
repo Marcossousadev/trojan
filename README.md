@@ -316,7 +316,7 @@ reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
 
 O Keylogging é a técnica utilizada para capturar e registrar os dados digitados pelo usuário por meio do teclado.
 Foi implementada no nosso programa de forma a compreender como capturamos esses dados de outro computador.
-Utilizado a biblioteca pynput
+Utilizamos a biblioteca pynput!
 
 ## ⚠️ Aviso de segurança
 
