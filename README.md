@@ -17,6 +17,8 @@ Compreender como funciona uma conexão reversa, na qual uma aplicação cliente 
 - `winreg` — Estudo da manipulação do Registro do Windows.
 - `sys` — Acesso a informações do interpretador e executável.
 - `time` — Controle de intervalos de execução.
+- datetime - Manipulação de horas e data
+- pynput - Manipulação de teclado
 - `PyInstaller` — Empacotamento de aplicações Python em executáveis.
 
 ### ⚙️ Configuração do endereço IP
