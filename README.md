@@ -1,6 +1,7 @@
-  ## 🐍 Python Reverse Shell — Estudos de Cibersegurança
+  ## 🐍 Python Reverse Shell — Estudos de Cibersegurança - Trojan Desenvolvido para Windows.
 
 Projeto desenvolvido em Python com o objetivo de estudar conceitos de comunicação via sockets TCP, arquitetura cliente-servidor e funcionamento de conexões reversas (*Reverse Shell*).
+Esse projeto é executável apenas no Sistema Operacional Windows, a vítima deve ter Windows como sistema operacional.
 
 ## 🎯 Objetivo
 
@@ -12,6 +13,9 @@ Compreender como funciona uma conexão reversa, na qual uma aplicação cliente 
 - `socket` — Comunicação através de sockets TCP.
 - `subprocess` — Estudo da execução de processos no sistema operacional.
 - `os` — Manipulação de diretórios.
+- `shutil` — Operações de cópia de arquivos.
+- `winreg` — Estudo da manipulação do Registro do Windows.
+- `sys` — Acesso a informações do interpretador e executável.
 - `time` — Controle de intervalos de execução.
 - `PyInstaller` — Empacotamento de aplicações Python em executáveis.
 
@@ -140,6 +144,18 @@ nc -lv 443
 
 Meu conselho é instalar em uma máquina virtual essas ferramentas!
 
+## 🔌 Comandos internos
+
+O projeto possui comandos personalizados que são interpretados diretamente pela aplicação Python.
+
+| Comando | Comportamento |
+|---|---|
+| `/exit` | Encerra a sessão TCP atual. |
+| `/check_persistence` | Verifica a existência da entrada de persistência no Registro do Windows. |
+| `/setup_persistence` | Executa a rotina de configuração de persistência. |
+
+Esses comandos são tratados internamente pela função `cmd()`, responsável por identificar instruções específicas da aplicação.
+
 
 ### Aplicações
 
@@ -148,6 +164,7 @@ Meu conselho é instalar em uma máquina virtual essas ferramentas!
 - Comunicação entre aplicações.
 - Análise de tráfego em laboratórios.
 - Estudos sobre protocolos de rede.
+- Mecanismos de Persistência no Windows
 
 ### Observação
 
@@ -245,6 +262,55 @@ Esses comandos ajudam a compreender como funciona a administração do Windows a
 - Informações do sistema operacional.
 
 Esses conhecimentos também são importantes para entender conceitos de reconhecimento de sistemas (*System Enumeration*) em ambientes de laboratório autorizados.
+
+## 🪟 Persistência no Windows
+
+Uma das funcionalidades estudadas nesta versão é o mecanismo de persistência do Windows.
+
+Persistência é uma técnica que permite que um programa continue sendo iniciado automaticamente após determinados eventos, como o login do usuário.
+
+### Conceitos estudados
+
+- Variáveis de ambiente do Windows.
+- Diretórios pertencentes ao perfil do usuário.
+- Registro do Windows (Windows Registry).
+- Chaves de inicialização automática.
+- Manipulação de arquivos executáveis.
+
+### Registro do Windows
+
+O Windows possui diferentes mecanismos de inicialização automática.
+
+Uma das áreas utilizadas para esse tipo de configuração é:
+
+`HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run`
+
+Essa chave permite que aplicações configuradas nela sejam iniciadas durante o login do usuário correspondente.
+
+**Importante:** entradas desconhecidas nessa localização podem representar riscos de segurança e devem ser investigadas.
+
+## 🔄 Reconexão automática
+
+Outro conceito estudado é o tratamento de falhas durante uma comunicação TCP.
+
+Em aplicações cliente-servidor, uma conexão pode ser interrompida por diversos motivos:
+
+- Indisponibilidade do servidor.
+- Problemas de conectividade.
+- Interrupção da comunicação.
+- Encerramento inesperado do processo.
+
+O projeto utiliza intervalos de espera e tratamento de exceções para estudar como aplicações lidam com falhas de comunicação.
+
+## 🔍 Análise de persistência no Windows
+
+Para investigar aplicações configuradas para inicialização automática, podemos utilizar ferramentas nativas do Windows.
+
+### Consultar entradas de inicialização
+
+```powershell
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
+```
 
 ## ⚠️ Aviso de segurança
 
