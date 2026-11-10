@@ -312,6 +312,9 @@ Para investigar aplicações configuradas para inicialização automática, pode
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"
 ```
 
+## 🔍 Keylogging
+
+O Keylogging é a técnica utilizada para capturar e registrar os dados digitados pelo usuário por meio do teclado.
 ## ⚠️ Aviso de segurança
 
 Este projeto possui finalidade exclusivamente educacional, sendo destinado ao estudo de redes de computadores e segurança da informação.
