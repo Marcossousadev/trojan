@@ -326,4 +326,4 @@ Este projeto possui finalidade exclusivamente educacional, sendo destinado ao es
 
 Técnicas de Reverse Shell podem ser utilizadas em ataques cibernéticos. Qualquer experimentação deve ocorrer exclusivamente em ambientes isolados, em máquinas próprias ou com autorização explícita.
 
-**Não utilize este projeto em sistemas de terceiros sem autorização.****
+**Não utilize este projeto em sistemas de terceiros sem autorização**
